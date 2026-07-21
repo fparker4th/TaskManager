@@ -1,28 +1,22 @@
-<p>task-manager works!</p>
-title: string;
-description: string;
-category: string;
-priority: string;
-dueDate: Date;
-status: string;
-createdAt: Date
-<table>
-    <tr>
-        <th>Task Id</th>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Priority</th>
-        <th>Status</th>
-    </tr>
-    @for (task of tasks(); track task.id; let idx = $index){
-    <tr>
-        <td>{{task.id}}</td>
-        <td>{{task.title}}</td>
-        <td>{{task.category}}</td>
-        <td>{{task.priority}}</td>
-        <td>{{task.status}}</td>
-    </tr>
-    }
+<div class="task-manager-container">
 
 
-</table>
+    <table>
+        <tr>
+            <th>Task Id</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Priority</th>
+            <th>Status</th>
+        </tr>
+        @for (task of tasks(); track task.id; let idx = $index){
+        <tr>
+            <td>{{task.id}}</td>
+            <td>{{task.title}}</td>
+            <td>{{task.category}}</td>
+            <td>{{task.priority}}</td>
+            <td>{{task.status}}</td>
+        </tr>
+        }
+    </table>
+</div>
