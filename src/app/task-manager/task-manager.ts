@@ -1,9 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+
+import { Task } from '../model/task';
 
 @Component({
   selector: 'app-task-manager',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './task-manager.html',
   styleUrl: './task-manager.scss',
 })
-export class TaskManager {}
+export class TaskManager {
+  tasks = signal<Task[]>([
+    {
+      id: 1,
+      title: 'Complete Angular Assignment',
+      description: 'Finish the task manager application with all requirements',
+      category: 'education',
+      priority: 'high',
+      dueDate: new Date('2024-12-15'),
+      status: 'in-progress',
+      createdAt: new Date('2024-12-01')
+    },
+    {
+      id: 2,
+      title: 'Buy Groceries',
+      description: 'Milk, Bread, Eggs, Vegetables',
+      category: 'shopping',
+      priority: 'medium',
+      dueDate: new Date('2024-12-10'),
+      status: 'pending',
+      createdAt: new Date('2024-12-05')
+    },
+    {
+      id: 3,
+      title: 'Team Meeting',
+      description: 'Discuss Q1 project roadmap',
+      category: 'work',
+      priority: 'high',
+      dueDate: new Date('2024-12-08'),
+      status: 'completed',
+      createdAt: new Date('2024-12-08')
+    }]
+
+  )
+}
