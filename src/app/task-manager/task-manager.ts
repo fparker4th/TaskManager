@@ -41,7 +41,32 @@ export class TaskManager {
       dueDate: new Date('2024-12-08'),
       status: 'completed',
       createdAt: new Date('2024-12-08')
-    }]
+    }]);
 
-  )
+  categories: string[] = ['work', 'personal', 'shopping', 'health', 'finance', 'education', 'other'];
+  priorities: string[] = ['low', 'medium', 'high', 'urgent'];
+  statuses: string[] = ['pending', 'in-progress', 'completed', 'cancelled'];
+
+  //Form data
+  newTask: {
+    title: string,
+    description: string,
+    category: string,
+    priority: string,
+    dueDate: string | Date,
+    status: string
+  } = {
+      title: '',
+      description: '',
+      category: '',
+      priority: 'medium',
+      dueDate: '',
+      status: 'pending'
+    };
+
+  //Filter controls
+  filterStatus: string = 'all';
+  filterCategory: string = 'all';
+  filterPriority: string = 'all';
+  showCompleted: boolean = true;
 }
