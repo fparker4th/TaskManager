@@ -89,7 +89,7 @@ export class TaskManager {
 
   getCompletionRate(): number
   {
-    if (this.tasks.length == 0) return 0;
+    if (this.tasks().length == 0) return 0;
     return Math.round((this.getCompletedTasksCount() / this.tasks().length) * 100);
   }
 
