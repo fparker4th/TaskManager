@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 
 
 import { Task } from '../model/task';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-manager',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './task-manager.html',
   styleUrl: './task-manager.scss',
 })
@@ -69,4 +70,35 @@ export class TaskManager {
   filterCategory: string = 'all';
   filterPriority: string = 'all';
   showCompleted: boolean = true;
+  getCompletedTasksCount(): number
+  {
+    return this.tasks().filter(task => task.status === 'completed').length;
+  }
+
+  getPendingTasksCount(): number
+  {
+    return this.tasks().filter(task => task.status === 'pending').length;
+  }
+
+  getOverdueTasksCount(): number
+  {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return this.tasks().filter(task => new Date(task.dueDate) < today && task.status != 'completed').length;
+  }
+
+  getCompletionRate(): number
+  {
+    if (this.tasks().length == 0) return 0;
+    return Math.round((this.getCompletedTasksCount() / this.tasks().length) * 100);
+  }
+
+  getProductivityLevel(): string
+  {
+    const rate = this.getCompletionRate();
+    if (rate >= 80) return 'excellent';
+    if (rate >= 60) return 'good';
+    if (rate >= 40) return 'needs-improvement';
+    return 'poor';
+  };
 }
