@@ -207,9 +207,12 @@
                     <div class="task-meta">
                         <span [class]="'category-tag category-' + task.category">{{task.category}}</span>
                         <span [class]="'status-badge status-' + task.status">{{task.status}}</span>
-
                         <span [style.color]="isOverdue(task)? '#ef4444' : '#64748b'">Due:
                             {{task.dueDate.toLocaleDateString()}}</span>
+                        @if(isTaskCompleted(task)){
+                        <span>
+                            {{task.completedAt?.toLocaleDateString()}}</span>
+                        }
                     </div>
                 </div>
 
@@ -219,16 +222,31 @@
             </div>
             }
         </div>
+        }@else{
+        <div class="empty-state">
+            <div class="empty-state-icon">[EMPTY]</div>
 
-        <div class="empty-state-description">
-            @if (filterStatus !== 'all' || filterCategory !== 'all' || filterPriority !== 'all')
-            {
-            Try adjusting your filters or add a new task.
-            }
-            @else
-            {
-            Add your first task to get started!
-            }
+            <div class="empty-state-title">
+                @if (filterStatus !== 'all' || filterCategory !== 'all' || filterPriority !== 'all')
+                {
+                No tasks match your filters.
+                }
+                @else
+                {
+                No tasks yet.
+                }
+            </div>
+
+            <div class="empty-state-description">
+                @if (filterStatus !== 'all' || filterCategory !== 'all' || filterPriority !== 'all')
+                {
+                Try adjusting your filters or add a new task.
+                }
+                @else
+                {
+                Add your first task to get started!
+                }
+            </div>
         </div>
         }
     </div>
