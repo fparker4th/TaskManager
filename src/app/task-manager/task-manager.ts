@@ -1,9 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 
 import { Task } from '../model/task';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-manager',
@@ -191,10 +190,14 @@ export class TaskManager {
   }
 
   isTaskCompletedOntime(task: Task): boolean|undefined{
-    if(!this.isTaskCompleted(task) || !task.completedAt ){
-      return !this.isOverdue(task);
+    if(!this.isTaskCompleted(task) || task.completedAt==undefined){
+      return false;
     }
-    return task.completedAt<task.dueDate;
+    const dueDate:Date = new Date(task.dueDate);
+    const completedAt:Date = new Date(task.completedAt);
+    completedAt.setHours(0,0,0,0);
+    dueDate.setHours(1,0,0,0);
+    return (dueDate.getTime() > completedAt.getTime());
   }
   
 }
