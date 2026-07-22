@@ -195,7 +195,8 @@ export class TaskManager {
     }
     const dueDate:Date = new Date(task.dueDate);
     const completedAt:Date = new Date(task.completedAt);
-    dueDate.setHours(0,0,0,0);
+    completedAt.setHours(0,0,0,0);
+    dueDate.setHours(1,0,0,0);
     return (dueDate.getTime() > completedAt.getTime());
   }
   
