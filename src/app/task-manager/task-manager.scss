@@ -389,7 +389,25 @@
   font-size: 12px;
   background: white;
   font-weight: bold;
-  color: #1fc67e;
+  color: #067c49;
+  display: inline-block;
+}
+.completed-ontime-tag {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  background: white;
+  font-weight: bold;
+  color: #067c49;
+  display: inline-block;
+}
+.completed-late-tag {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  background: white;
+  font-weight: bold;
+  color: #067c49;
   display: inline-block;
 }
 
