@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './task-manager.scss',
 })
 export class TaskManager {
+
   tasks = signal<Task[]>([
     {
       id: 1,
@@ -100,5 +101,74 @@ export class TaskManager {
     if (rate >= 60) return 'good';
     if (rate >= 40) return 'needs-improvement';
     return 'poor';
-  };
+  }
+   onFieldFocus(field: string): void
+  {
+    //Could add validation feedback here
+  }
+
+  onFieldBlur(field: string): void
+  {
+    //Could add validation feedback here
+  }
+  addTask(): void
+  {
+    if (!this.newTask.title || !this.newTask.category || !this.newTask.dueDate)
+    {
+      return;
+    }
+
+    const task: Task = {
+      id: Date.now(),
+      title: this.newTask.title,
+      description: this.newTask.description,
+      category: this.newTask.category,
+      priority: this.newTask.priority,
+      dueDate: new Date(this.newTask.dueDate),
+      status: this.newTask.status,
+      createdAt: new Date()
+    };
+
+    this.tasks().push(task);
+    this.clearForm();
+  }
+
+  clearForm(): void
+  {
+    this.newTask = {
+      title: '',
+      description: '',
+      category: '',
+      priority: 'medium',
+      dueDate: '',
+      status: 'pending'
+    };
+  }
+
+  getFilteredTasks(): Task[]
+  {
+    let filtered = [...this.tasks()];
+
+    if (this.filterStatus !== 'all')
+    {
+      filtered = filtered.filter(task => task.status === this.filterStatus);
+    }
+
+    if (this.filterCategory !== 'all')
+    {
+      filtered = filtered.filter(task => task.category === this.filterCategory);
+    }
+
+    if (this.filterPriority !== 'all')
+    {
+      filtered = filtered.filter(task => task.priority === this.filterPriority);
+    }
+
+    if (!this.showCompleted)
+    {
+      filtered = filtered.filter(task => task.status !== 'completed');
+    }
+
+    return filtered;
+  }
 }
