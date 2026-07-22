@@ -188,5 +188,12 @@ export class TaskManager {
 
     return task.status === 'completed';
   }
+
+  isTaskCompletedOntime(task: Task): boolean|undefined{
+    if(!this.isTaskCompleted(task) || !task.completedAt ){
+      return this.isOverdue(task);
+    }
+    return task.completedAt>task.dueDate;
+  }
   
 }

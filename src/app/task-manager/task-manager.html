@@ -213,6 +213,13 @@
                         <span class="completed-date-tag">
                             {{'Date Completed:'+task.completedAt?.toLocaleDateString()}}</span>
                         }
+                        @if (this.isTaskCompletedOntime(task)) {
+                            <span class="completed-ontime-tag">
+                               Task Completed On time</span>
+                        }@else if (this.isTaskCompleted(task)) {
+                            <span class="completed-late-tag">
+                               Task Completed Past Deadline</span>
+                        }
                     </div>
                 </div>
 
