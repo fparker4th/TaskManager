@@ -42,7 +42,8 @@ export class TaskManager {
       priority: 'high',
       dueDate: new Date('2024-12-08'),
       status: 'completed',
-      createdAt: new Date('2024-12-08')
+      createdAt: new Date('2024-12-08'),
+      completedAt: new Date('2024-12-08')
     }]);
 
   categories: string[] = ['work', 'personal', 'shopping', 'health', 'finance', 'education', 'other'];
@@ -187,6 +188,13 @@ export class TaskManager {
   isTaskCompleted(task:Task):boolean{
 
     return task.status === 'completed';
+  }
+
+  isTaskCompletedOntime(task: Task): boolean|undefined{
+    if(!this.isTaskCompleted(task) || !task.completedAt ){
+      return !this.isOverdue(task);
+    }
+    return task.completedAt<task.dueDate;
   }
   
 }
