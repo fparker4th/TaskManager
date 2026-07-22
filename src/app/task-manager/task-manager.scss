@@ -382,6 +382,16 @@
   color: #475569;
   display: inline-block;
 }
+.completed-date-tag {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  background: white;
+  font-weight: bold;
+  color: #1fc67e;
+  display: inline-block;
+}
+
 
 .category-work { background: #dbeafe; color: #1e40af; }
 .category-personal { background: #e9d5ff; color: #6b21a8; }
