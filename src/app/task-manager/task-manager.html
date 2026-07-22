@@ -112,6 +112,64 @@
   }
  } 
  <!-- Productivity alert ends -->
+ <div class="add-task-section">
+  <div class="add-task-header">
+   <h2>Add New Task</h2>
+  </div>
 
+  <div class="form-grid">
+   <div class="form-group">
+    <label>Title *</label>
+    <input type="text" [(ngModel)]="newTask.title" placeholder="Enter task title" name="task-title" required (focus)="onFieldFocus('title')" (blur)="onFieldBlur('title')" />
+   </div>
+
+   <div class="form-group">
+    <label>Category *</label>
+    <select [(ngModel)]="newTask.category" required>
+     <option value="" disabled>Select Category</option>
+     @for (category of categories; track category)
+     {
+      <option [value]="category">{{category}}</option>
+     }
+    </select>
+   </div>
+
+   <div class="form-group">
+    <label>Priority</label>
+    <select [(ngModel)]="newTask.priority">
+     @for (priority of priorities; track priority)
+     {
+      <option [value]="priority">{{priority}}</option>
+     }
+    </select>
+   </div>
+
+   <div class="form-group">
+    <label>Due Date *</label>
+    <input type="date" [(ngModel)]="newTask.dueDate" required />
+   </div>
+
+   <div class="form-group">
+    <label>Status</label>
+    <select [(ngModel)]="newTask.status">
+     @for (status of statuses; track status)
+     {
+      <option [value]="status">{{status}}</option>
+     }
+    </select>
+   </div>
+
+   <div class="form-group" style="grid-column: 1 / -1;">
+    <label>Description</label>
+    <textarea [(ngModel)]="newTask.description" placeholder="Enter task description (optional)"></textarea>
+   </div>
+  </div>
+
+  <div class="form-actions">
+   <button class="btn btn-primary" (click)="addTask()" [disabled]="!newTask.title || !newTask.category || !newTask.dueDate" [title]="(!newTask.title || !newTask.category || !newTask.dueDate)? 'Please fill in required fields' : 'Add new task'">Add Task</button>
+
+   <button class="btn btn-secondary" (click)="clearForm()">Clear</button>
+  </div>
+ </div>
  <!-- header section ends -->
 </div>
