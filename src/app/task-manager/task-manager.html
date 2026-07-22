@@ -220,10 +220,28 @@
             }
         </div>
         }@else{
-        <div class="empty-state">
-            <div class="empty-state-icon">
-                [EMPTY]
-            </div>
+        <div class="empty-state-icon">[EMPTY]</div>
+
+        <div class="empty-state-title">
+            @if (filterStatus !== 'all' || filterCategory !== 'all' || filterPriority !== 'all')
+            {
+            No tasks match your filters.
+            }
+            @else
+            {
+            No tasks yet.
+            }
+        </div>
+
+        <div class="empty-state-description">
+            @if (filterStatus !== 'all' || filterCategory !== 'all' || filterPriority !== 'all')
+            {
+            Try adjusting your filters or add a new task.
+            }
+            @else
+            {
+            Add your first task to get started!
+            }
         </div>
         }
     </div>
