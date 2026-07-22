@@ -71,50 +71,41 @@ export class TaskManager {
   filterCategory: string = 'all';
   filterPriority: string = 'all';
   showCompleted: boolean = true;
-  getCompletedTasksCount(): number
-  {
+  getCompletedTasksCount(): number {
     return this.tasks().filter(task => task.status === 'completed').length;
   }
 
-  getPendingTasksCount(): number
-  {
+  getPendingTasksCount(): number {
     return this.tasks().filter(task => task.status === 'pending').length;
   }
 
-  getOverdueTasksCount(): number
-  {
+  getOverdueTasksCount(): number {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return this.tasks().filter(task => new Date(task.dueDate) < today && task.status != 'completed').length;
   }
 
-  getCompletionRate(): number
-  {
+  getCompletionRate(): number {
     if (this.tasks().length == 0) return 0;
     return Math.round((this.getCompletedTasksCount() / this.tasks().length) * 100);
   }
 
-  getProductivityLevel(): string
-  {
+  getProductivityLevel(): string {
     const rate = this.getCompletionRate();
     if (rate >= 80) return 'excellent';
     if (rate >= 60) return 'good';
     if (rate >= 40) return 'needs-improvement';
     return 'poor';
   }
-   onFieldFocus(field: string): void
-  {
+  onFieldFocus(field: string): void {
     //Could add validation feedback here
   }
 
-  onFieldBlur(field: string): void
-  {
+  onFieldBlur(field: string): void {
     //Could add validation feedback here
   }
-  addTask(): void
-  {
-    if (!this.newTask.title || !this.newTask.category || !this.newTask.dueDate)
-    {
+  addTask(): void {
+    if (!this.newTask.title || !this.newTask.category || !this.newTask.dueDate) {
       return;
     }
 
@@ -133,8 +124,7 @@ export class TaskManager {
     this.clearForm();
   }
 
-  clearForm(): void
-  {
+  clearForm(): void {
     this.newTask = {
       title: '',
       description: '',
@@ -145,30 +135,54 @@ export class TaskManager {
     };
   }
 
-  getFilteredTasks(): Task[]
-  {
+  getFilteredTasks(): Task[] {
     let filtered = [...this.tasks()];
 
-    if (this.filterStatus !== 'all')
-    {
+    if (this.filterStatus !== 'all') {
       filtered = filtered.filter(task => task.status === this.filterStatus);
     }
 
-    if (this.filterCategory !== 'all')
-    {
+    if (this.filterCategory !== 'all') {
       filtered = filtered.filter(task => task.category === this.filterCategory);
     }
 
-    if (this.filterPriority !== 'all')
-    {
+    if (this.filterPriority !== 'all') {
       filtered = filtered.filter(task => task.priority === this.filterPriority);
     }
 
-    if (!this.showCompleted)
-    {
+    if (!this.showCompleted) {
       filtered = filtered.filter(task => task.status !== 'completed');
     }
 
     return filtered;
   }
+  toggleTaskComplete(id: number): void {
+    const task = this.tasks().find(t => t.id === id);
+    if (task) {
+      if (task.status === 'completed') {
+        task.status = 'pending';
+        delete task.completedAt;
+      }
+      else {
+        task.status = 'completed';
+        task.completedAt = new Date();
+      }
+    }
+  }
+
+  isOverdue(task:Task){
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return new Date(task.dueDate) < today && task.status != 'completed';
+
+  }
+  deleteTask(taskId:number){
+    const index = this.tasks().findIndex(task => task.id === taskId);
+    if (index !== -1)
+    {
+      this.tasks().splice(index, 1);
+    }
+
+  }
+  
 }
