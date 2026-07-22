@@ -184,8 +184,9 @@ export class TaskManager {
     }
 
   }
-  isTaskCompleted(taskStatus: string):boolean{
-    return taskStatus === 'completed';
+  isTaskCompleted(task:Task):boolean{
+
+    return task.status === 'completed';
   }
   
 }
