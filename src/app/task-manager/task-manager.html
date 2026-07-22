@@ -210,8 +210,8 @@
                         <span [style.color]="isOverdue(task)? '#ef4444' : '#64748b'">Due:
                             {{task.dueDate.toLocaleDateString()}}</span>
                         @if(isTaskCompleted(task)){
-                        <span>
-                            {{task.completedAt?.toLocaleDateString()}}</span>
+                        <span class="completed-date-tag">
+                            {{'Date Completed:'+task.completedAt?.toLocaleDateString()}}</span>
                         }
                     </div>
                 </div>
