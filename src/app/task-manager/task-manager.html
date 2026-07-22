@@ -193,43 +193,30 @@
                 <input type="checkbox" class="task-checkbox" [checked]="task.status === 'completed'"
                     (change)="toggleTaskComplete(task.id)" />
 
-            </div>
-            <div class="task-content">
-                <div class="task-header">
-                    <span class="task-number">{{idx + 1}}</span>
-                    <span class="task-title">{{task.title}}</span>
+                <div class="task-content">
+                    <div class="task-header">
+                        <span class="task-number">{{idx + 1}}</span>
+                        <span class="task-title">{{task.title}}</span>
+                    </div>
+
+                    @if (task.description)
+                    {
+                    <p class="task-description">{{task.description}}</p>
+                    }
+
+                    <div class="task-meta">
+                        <span [class]="'category-tag category-' + task.category">{{task.category}}</span>
+                        <span [class]="'status-badge status-' + task.status">{{task.status}}</span>
+
+                        <span [style.color]="isOverdue(task)? '#ef4444' : '#64748b'">Due:
+                            {{task.dueDate.toLocaleDateString()}}</span>
+                    </div>
                 </div>
 
-                @if (task.description)
-                {
-                <p class="task-description">{{task.description}}</p>
-                }
-
-                <div class="task-meta">
-                    <span [class]="'category-tag category-' + task.category">{{task.category}}</span>
-                    <span [class]="'status-badge status-' + task.status">{{task.status}}</span>
-
-                    <span [style.color]="isOverdue(task)? '#ef4444' : '#64748b'">Due:
-                        {{task.dueDate.toLocaleDateString()}}</span>
+                <div class="task-actions">
+                    <button class="btn btn-danger" (click)="deleteTask(task.id)">Delete</button>
                 </div>
             </div>
-
-            <div class="task-actions">
-                <button class="btn btn-danger" (click)="deleteTask(task.id)">Delete</button>
-            </div>
-            }
-        </div>
-        }@else{
-        <div class="empty-state-icon">[EMPTY]</div>
-
-        <div class="empty-state-title">
-            @if (filterStatus !== 'all' || filterCategory !== 'all' || filterPriority !== 'all')
-            {
-            No tasks match your filters.
-            }
-            @else
-            {
-            No tasks yet.
             }
         </div>
 
