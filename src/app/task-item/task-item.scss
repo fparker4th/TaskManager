@@ -1,0 +1,17 @@
+.task-item {
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #e2e8f0;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.task-item:hover {
+  background: #f1f5f9;
+  transform: translateX(5px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
