@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
 
 import { Task } from '../model/task';
+import { TaskManagerService } from '../services/task-manager-service';
 
 @Component({
   selector: 'app-task-item',
@@ -11,10 +12,9 @@ import { Task } from '../model/task';
 export class TaskItem {
   task = input.required<Task>();
   index = input.required<number>();
-  deleteTaskOutput = output<number>();
 
 
-  constructor() {
+  constructor(private taskManagerService:TaskManagerService) {
 
   }
   toggleTaskComplete(): void {
@@ -38,7 +38,7 @@ export class TaskItem {
 
   }
   deleteTask() {
-    this.deleteTaskOutput.emit(this.task().id);
+    this.taskManagerService.deleteTask(this.task().id);
   }
   isTaskCompleted(): boolean {
 
