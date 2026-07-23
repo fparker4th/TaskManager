@@ -1,0 +1,38 @@
+<div class="task-item" [class]="'priority-' + task().priority" [class.task-completed]="task().status === 'completed'">
+    <input type="checkbox" class="task-checkbox" [checked]="isTaskCompleted()"
+        (change)="toggleTaskComplete()" />
+
+    <div class="task-content">
+        <div class="task-header">
+            <span class="task-number">{{index() + 1}}</span>
+            <span class="task-title">{{task().title}}</span>
+        </div>
+
+        @if (task().description)
+        {
+        <p class="task-description">{{task().description}}</p>
+        }
+
+        <div class="task-meta">
+            <span [class]="'category-tag category-' + task().category">{{task().category}}</span>
+            <span [class]="'status-badge status-' + task().status">{{task().status}}</span>
+            <span [style.color]="isOverdue()? '#ef4444' : '#64748b'">Due:
+                {{task().dueDate.toLocaleDateString()}}</span>
+            @if(isTaskCompleted()){
+            <span class="completed-date-tag">
+                {{'Date Completed:'+task().completedAt?.toLocaleDateString()}}</span>
+            }
+            @if (this.isTaskCompletedOntime()) {
+            <span class="completed-ontime-tag">
+                Task Completed On time</span>
+            }@else if (this.isTaskCompleted()) {
+            <span class="completed-late-tag">
+                Task Completed Past Deadline</span>
+            }
+        </div>
+    </div>
+
+    <div class="task-actions">
+        <button class="btn btn-danger" (click)="deleteTask()">Delete</button>
+    </div>
+</div>

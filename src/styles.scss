@@ -6,6 +6,29 @@ body
   margin: 0;
   padding: 0;
 }
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+  padding: 5px 10px;
+  font-size: 13px;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
 
 @keyframes slideInFromRight {
   from {

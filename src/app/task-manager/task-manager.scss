@@ -156,18 +156,7 @@
 }
 
 /* Buttons */
-.btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
+
 
 .btn-primary {
   background: #4f46e5;
@@ -204,16 +193,6 @@
   background: #059669;
 }
 
-.btn-danger {
-  background: #ef4444;
-  color: white;
-  padding: 5px 10px;
-  font-size: 13px;
-}
-
-.btn-danger:hover {
-  background: #dc2626;
-}
 
 .btn-warning {
   background: #f59e0b;
@@ -249,96 +228,7 @@
 }
 
 /* Task Item */
-.task-item {
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 4px solid #e2e8f0;
-  background: #f8fafc;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  transition: all 0.3s;
-  cursor: pointer;
-}
 
-.task-item:hover {
-  background: #f1f5f9;
-  transform: translateX(5px);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-}
-
-.task-checkbox {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-
-.task-content {
-  flex: 1;
-}
-
-.task-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 5px;
-}
-
-.task-number {
-  background: #4f46e5;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.task-title {
-  font-weight: 600;
-  font-size: 16px;
-  color: #1e293b;
-}
-
-.task-description {
-  color: #64748b;
-  font-size: 14px;
-  margin: 5px 0;
-}
-
-.task-meta {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  font-size: 13px;
-  color: #94a3b8;
-}
-
-.task-actions {
-  display: flex;
-  gap: 8px;
-}
-
-/* Priority Colors */
-.priority-low {
-  border-left-color: #10b981 !important;
-  background: #f0fdf4 !important;
-}
-
-.priority-medium {
-  border-left-color: #f59e0b !important;
-  background: #fffbeb !important;
-}
-
-.priority-high {
-  border-left-color: #ef4444 !important;
-  background: #fef2f2 !important;
-}
-
-.priority-urgent {
-  border-left-color: #dc2626 !important;
-  background: #fee2e2 !important;
-  animation: pulse 2s infinite;
-}
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
@@ -375,50 +265,6 @@
 }
 
 /* Category Tags */
-.category-tag {
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  background: #e2e8f0;
-  color: #475569;
-  display: inline-block;
-}
-.completed-date-tag {
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  background: white;
-  font-weight: bold;
-  color: #067c49;
-  display: inline-block;
-}
-.completed-ontime-tag {
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  background: white;
-  font-weight: bold;
-  color: #067c49;
-  display: inline-block;
-}
-.completed-late-tag {
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  background: white;
-  font-weight: bold;
-  color: #ce1332;
-  display: inline-block;
-}
-
-
-.category-work { background: #dbeafe; color: #1e40af; }
-.category-personal { background: #e9d5ff; color: #6b21a8; }
-.category-shopping { background: #fce7f3; color: #9f1239; }
-.category-health { background: #d1fae5; color: #065f46; }
-.category-finance { background: #fef3c7; color: #78350f; }
-.category-education { background: #e0e7ff; color: #312e81; }
-.category-other { background: #f3f4f6; color: #374151; }
 
 /* Completed Task */
 .task-completed {
