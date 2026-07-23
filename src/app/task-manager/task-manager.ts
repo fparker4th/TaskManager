@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { Task } from '../model/task';
+import { TaskItem } from "../task-item/task-item";
 
 @Component({
   selector: 'app-task-manager',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TaskItem],
   templateUrl: './task-manager.html',
   styleUrl: './task-manager.scss',
 })
@@ -156,48 +157,6 @@ export class TaskManager {
 
     return filtered;
   }
-  toggleTaskComplete(id: number): void {
-    const task = this.tasks().find(t => t.id === id);
-    if (task) {
-      if (task.status === 'completed') {
-        task.status = 'pending';
-        delete task.completedAt;
-      }
-      else {
-        task.status = 'completed';
-        task.completedAt = new Date();
-      }
-    }
-  }
-
-  isOverdue(task:Task){
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return new Date(task.dueDate) < today && task.status != 'completed';
-
-  }
-  deleteTask(taskId:number){
-    const index = this.tasks().findIndex(task => task.id === taskId);
-    if (index !== -1)
-    {
-      this.tasks().splice(index, 1);
-    }
-
-  }
-  isTaskCompleted(task:Task):boolean{
-
-    return task.status === 'completed';
-  }
-
-  isTaskCompletedOntime(task: Task): boolean|undefined{
-    if(!this.isTaskCompleted(task) || task.completedAt==undefined){
-      return false;
-    }
-    const dueDate:Date = new Date(task.dueDate);
-    const completedAt:Date = new Date(task.completedAt);
-    completedAt.setHours(0,0,0,0);
-    dueDate.setHours(1,0,0,0);
-    return (dueDate.getTime() > completedAt.getTime());
-  }
+ 
   
 }
