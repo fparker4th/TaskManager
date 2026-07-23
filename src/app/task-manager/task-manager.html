@@ -188,7 +188,9 @@
         <div class="tasks-list">
             @for (task of getFilteredTasks(); track task.id; let idx = $index)
             {
-             <app-task-item [task]="task" [index]="idx"></app-task-item>
+             <app-task-item [task]="task" 
+             (deleteTaskOutput)="deleteTask($event)"
+             [index]="idx"></app-task-item>
             }
         </div>
         }@else{
