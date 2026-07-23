@@ -15,3 +15,41 @@
   transform: translateX(5px);
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.task-content {
+  flex: 1;
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.task-number {
+  background: #4f46e5;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.task-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1e293b;
+}
+
+.task-description {
+  color: #64748b;
+  font-size: 14px;
+  margin: 5px 0;
+}
