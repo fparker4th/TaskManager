@@ -1,6 +1,6 @@
 <div class="task-item" [class]="'priority-' + task().priority" [class.task-completed]="task().status === 'completed'">
     <input type="checkbox" class="task-checkbox" [checked]="isTaskCompleted()"
-        (change)="toggleTaskComplete(task().id)" />
+        (change)="toggleTaskComplete()" />
 
     <div class="task-content">
         <div class="task-header">

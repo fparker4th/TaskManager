@@ -17,7 +17,7 @@ export class TaskItem {
   constructor() {
 
   }
-  toggleTaskComplete(id: number): void {
+  toggleTaskComplete(): void {
     const task = this.task();
     if (task) {
       if (task.status === 'completed') {
