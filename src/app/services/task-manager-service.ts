@@ -50,6 +50,17 @@ export class TaskManagerService {
     if (deleteIndex != -1) {
       this.tasks().splice(deleteIndex, 1);
     }
-
+  }
+  toggleTaskComplete(task:Task): void {
+    if (task) {
+      if (task.status === 'completed') {
+        task.status = 'pending';
+        delete task.completedAt;
+      }
+      else {
+        task.status = 'completed';
+        task.completedAt = new Date();
+      }
+    }
   }
 }

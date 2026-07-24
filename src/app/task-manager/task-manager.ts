@@ -44,7 +44,7 @@ export class TaskManager implements OnInit{
 
   }
   ngOnInit(): void {
-    this.tasks = this.taskManagerService.getTasks()
+    this.tasks = this.taskManagerService.getTasks();
   }
   getCompletedTasksCount(): number {
     return this.tasks().filter(task => task.status === 'completed').length;

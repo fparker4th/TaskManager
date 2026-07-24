@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 
 import { Task } from '../model/task';
 import { TaskManagerService } from '../services/task-manager-service';
@@ -12,23 +12,12 @@ import { TaskManagerService } from '../services/task-manager-service';
 export class TaskItem {
   task = input.required<Task>();
   index = input.required<number>();
+  taskManagerService: TaskManagerService = inject(TaskManagerService)
 
 
-  constructor(private taskManagerService:TaskManagerService) {
-
-  }
   toggleTaskComplete(): void {
     const task = this.task();
-    if (task) {
-      if (task.status === 'completed') {
-        task.status = 'pending';
-        delete task.completedAt;
-      }
-      else {
-        task.status = 'completed';
-        task.completedAt = new Date();
-      }
-    }
+    this.taskManagerService.toggleTaskComplete(task);
   }
 
   isOverdue() {
@@ -49,7 +38,7 @@ export class TaskItem {
     let completedAt = this.task().completedAt;
     if (!this.isTaskCompleted() || completedAt == undefined) {
       return false;
-    } else if(completedAt ) {
+    } else if (completedAt) {
       const dueDate: Date = new Date(this.task().dueDate);
       var compAt = new Date(completedAt);
       compAt.setHours(0, 0, 0, 0);
