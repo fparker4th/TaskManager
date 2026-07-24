@@ -42,37 +42,7 @@
     <!-- Statistics Cards ends -->
 
     <!-- Quick Actions bar starts -->
-    <div class="quick-actions">
-        <select class="filter-dropdown" [(ngModel)]="filterStatus">
-            <option value="all">All Status</option>
-            @for (status of statuses; track status)
-            {
-            <option [value]="status">{{status}}</option>
-            }
-        </select>
-
-        <select class="filter-dropdown" [(ngModel)]="filterCategory">
-            <option value="all">All Categories</option>
-            @for (category of categories; track category)
-            {
-            <option [value]="category">{{category}}</option>
-            }
-        </select>
-
-        <select class="filter-dropdown" [(ngModel)]="filterPriority">
-            <option value="all">All Priorities</option>
-            @for (priority of priorities; track priority)
-            {
-            <option [value]="priority">{{priority}}</option>
-            }
-        </select>
-
-        <label style="display: flex; align-items: center; gap: 8px" for="showCompletedTasks">
-            <input type="checkbox" [(ngModel)]="showCompleted" id="showCompletedTasks">
-            Show Completed Tasks
-        </label>
-    </div>
-    <!-- Quick Actions bar ends -->
+        <!-- Quick Actions bar ends -->
 
     <!-- Productivity alert starts -->
     @switch (getProductivityLevel())
@@ -177,6 +147,37 @@
         </div>
     </div>
     <!-- Tasks List starts -->
+     <div class="quick-actions">
+        <select class="filter-dropdown" [(ngModel)]="filterStatus">
+            <option value="all">All Status</option>
+            @for (status of statuses; track status)
+            {
+            <option [value]="status">{{status}}</option>
+            }
+        </select>
+
+        <select class="filter-dropdown" [(ngModel)]="filterCategory">
+            <option value="all">All Categories</option>
+            @for (category of categories; track category)
+            {
+            <option [value]="category">{{category}}</option>
+            }
+        </select>
+
+        <select class="filter-dropdown" [(ngModel)]="filterPriority">
+            <option value="all">All Priorities</option>
+            @for (priority of priorities; track priority)
+            {
+            <option [value]="priority">{{priority}}</option>
+            }
+        </select>
+
+        <label style="display: flex; align-items: center; gap: 8px" for="showCompletedTasks">
+            <input type="checkbox" [(ngModel)]="showCompleted" id="showCompletedTasks">
+            Show Completed Tasks
+        </label>
+    </div>
+
     <div class="tasks-section">
         <div class="section-header">
             <h2>Tasks</h2>
