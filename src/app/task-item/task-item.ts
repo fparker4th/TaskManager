@@ -2,10 +2,11 @@ import { Component, inject, input, output } from '@angular/core';
 
 import { Task } from '../model/task';
 import { TaskManagerService } from '../services/task-manager-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-task-item',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './task-item.html',
   styleUrl: './task-item.scss',
 })

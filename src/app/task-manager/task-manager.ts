@@ -72,25 +72,25 @@ export class TaskManager {
   }
 
   getCompletedTasksCount(): number {
-    return this.taskStatsService.getCompletedTasksCount(this.getTasks());
+    return this.taskStatsService.getCompletedTasksCount();
   }
 
   getPendingTasksCount(): number {
-    return this.taskStatsService.getPendingTasksCount(this.getTasks())
+    return this.taskStatsService.getPendingTasksCount()
   }
 
   getOverdueTasksCount(): number {
-    return this.taskStatsService.getOverdueTasksCount(this.getTasks())
+    return this.taskStatsService.getOverdueTasksCount()
     
   }
 
   getCompletionRate(): number {
-    return this.taskStatsService.getCompletionRate(this.getTasks());
+    return this.taskStatsService.getCompletionRate();
   
   }
 
   getProductivityLevel(): string {
-    return this.taskStatsService.getProductivityLevel(this.getTasks());
+    return this.taskStatsService.getProductivityLevel();
    
   }
   onFieldFocus(field: string): void {

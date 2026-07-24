@@ -14,13 +14,13 @@
         }
 
         <div class="task-meta">
-            <span [class]="'category-tag category-' + task().category">{{task().category}}</span>
-            <span [class]="'status-badge status-' + task().status">{{task().status}}</span>
+            <span [class]="'category-tag category-' + task().category">{{task().category|titlecase}}</span>
+            <span [class]="'status-badge status-' + task().status">{{task().status|uppercase}}</span>
             <span [style.color]="isOverdue()? '#ef4444' : '#64748b'">Due:
-                {{task().dueDate.toLocaleDateString()}}</span>
-            @if(isTaskCompleted()){
+                {{task().dueDate|date:'mediumDate'}}</span>
+            @if(isTaskCompleted() || task().completedAt){
             <span class="completed-date-tag">
-                {{'Date Completed:'+task().completedAt?.toLocaleDateString()}}</span>
+                {{'Date Completed:'+task().completedAt|date:'mediumDate'}}</span>
             }
             @if (this.isTaskCompletedOntime()) {
             <span class="completed-ontime-tag">
