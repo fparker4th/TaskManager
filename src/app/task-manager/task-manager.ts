@@ -36,13 +36,38 @@ export class TaskManager {
     };
 
   //Filter controls
-  filterStatus: string = 'all';
-  filterCategory: string = 'all';
-  filterPriority: string = 'all';
-  showCompleted: boolean = true;
+  
   taskManagerService: TaskManagerService = inject(TaskManagerService)
   taskFilterService: TaskFilterService = inject(TaskFilterService);
-
+/*
+filterStatus: string = 'all';
+  filterCategory: string = 'all';
+  filterPriority: string = 'all';
+  showCompleted: boolean = true; */
+  get filterStatus(){
+    return this.taskFilterService.getFilterStatus();
+  }
+  set filterStatus(value){
+    this.taskFilterService.setFilterStatus(value);
+  }
+  get filterCategory(){
+    return this.taskFilterService.getFilterCategory();
+  }
+  set filterCategory(value){
+    this.taskFilterService.setFilterCateogry(value);
+  }
+  get filterPriority(){
+    return this.taskFilterService.getFilterPriority();
+  }
+  set filterPriority(value){
+    this.taskFilterService.setFilterPriority(value);
+  }
+   get showCompleted(){
+    return this.taskFilterService.getShowCompleted();
+  }
+  set showCompleted(value){
+    this.taskFilterService.setShowCompleted(value);
+  }
   getTasks() {
     return this.taskManagerService.getTasks();
   }
@@ -112,7 +137,7 @@ export class TaskManager {
   }
 
   getFilteredTasks(): Task[] {
-    return this.taskFilterService.filterTasks(this.getTasks(), this.filterStatus, this.filterCategory, this.filterPriority, this.showCompleted);
+    return this.taskFilterService.filterTasks(this.getTasks());
   }
 
 
