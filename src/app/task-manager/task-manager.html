@@ -101,7 +101,7 @@
                     <option value="" disabled>Select Category</option>
                     @for (category of categories; track category)
                     {
-                    <option [value]="category">{{category}}</option>
+                    <option [value]="category">{{category|titlecase}}</option>
                     }
                 </select>
             </div>
@@ -111,7 +111,7 @@
                 <select [(ngModel)]="newTask.priority">
                     @for (priority of priorities; track priority)
                     {
-                    <option [value]="priority">{{priority}}</option>
+                    <option [value]="priority">{{priority|titlecase}}</option>
                     }
                 </select>
             </div>
@@ -126,7 +126,7 @@
                 <select [(ngModel)]="newTask.status">
                     @for (status of statuses; track status)
                     {
-                    <option [value]="status">{{status}}</option>
+                    <option [value]="status">{{status|uppercase}}</option>
                     }
                 </select>
             </div>
