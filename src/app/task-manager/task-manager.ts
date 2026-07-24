@@ -6,6 +6,7 @@ import { Task } from '../model/task';
 import { TaskItem } from "../task-item/task-item";
 import { TaskManagerService } from '../services/task-manager-service';
 import { TaskFilterService } from '../services/task-filter-service';
+import { TaskStatsService } from '../services/task-stats-service';
 
 @Component({
   selector: 'app-task-manager',
@@ -36,42 +37,61 @@ export class TaskManager {
     };
 
   //Filter controls
-  filterStatus: string = 'all';
-  filterCategory: string = 'all';
-  filterPriority: string = 'all';
-  showCompleted: boolean = true;
+  
   taskManagerService: TaskManagerService = inject(TaskManagerService)
   taskFilterService: TaskFilterService = inject(TaskFilterService);
+  taskStatsService: TaskStatsService = inject(TaskStatsService);
 
+
+  get filterStatus(){
+    return this.taskFilterService.getFilterStatus();
+  }
+  set filterStatus(value){
+    this.taskFilterService.setFilterStatus(value);
+  }
+  get filterCategory(){
+    return this.taskFilterService.getFilterCategory();
+  }
+  set filterCategory(value){
+    this.taskFilterService.setFilterCateogry(value);
+  }
+  get filterPriority(){
+    return this.taskFilterService.getFilterPriority();
+  }
+  set filterPriority(value){
+    this.taskFilterService.setFilterPriority(value);
+  }
+   get showCompleted(){
+    return this.taskFilterService.getShowCompleted();
+  }
+  set showCompleted(value){
+    this.taskFilterService.setShowCompleted(value);
+  }
   getTasks() {
     return this.taskManagerService.getTasks();
   }
 
   getCompletedTasksCount(): number {
-    return this.getTasks().filter(task => task.status === 'completed').length;
+    return this.taskStatsService.getCompletedTasksCount(this.getTasks());
   }
 
   getPendingTasksCount(): number {
-    return this.getTasks().filter(task => task.status === 'pending').length;
+    return this.taskStatsService.getPendingTasksCount(this.getTasks())
   }
 
   getOverdueTasksCount(): number {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return this.getTasks().filter(task => new Date(task.dueDate) < today && task.status != 'completed').length;
+    return this.taskStatsService.getOverdueTasksCount(this.getTasks())
+    
   }
 
   getCompletionRate(): number {
-    if (this.getTasks().length == 0) return 0;
-    return Math.round((this.getCompletedTasksCount() / this.getTasks().length) * 100);
+    return this.taskStatsService.getCompletionRate(this.getTasks());
+  
   }
 
   getProductivityLevel(): string {
-    const rate = this.getCompletionRate();
-    if (rate >= 80) return 'excellent';
-    if (rate >= 60) return 'good';
-    if (rate >= 40) return 'needs-improvement';
-    return 'poor';
+    return this.taskStatsService.getProductivityLevel(this.getTasks());
+   
   }
   onFieldFocus(field: string): void {
     //Could add validation feedback here
@@ -112,7 +132,7 @@ export class TaskManager {
   }
 
   getFilteredTasks(): Task[] {
-    return this.taskFilterService.filterTasks(this.getTasks(), this.filterStatus, this.filterCategory, this.filterPriority, this.showCompleted);
+    return this.taskFilterService.filterTasks(this.getTasks());
   }
 
 

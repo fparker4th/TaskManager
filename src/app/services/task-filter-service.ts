@@ -3,23 +3,52 @@ import { Task } from '../model/task';
 
 @Service()
 export class TaskFilterService {
-    filterTasks(tasks: Task[],filterStatus: string, filterCategory: string, filterPriority: string, showCompleted: boolean
-    ): Task[] {
+    private filterStatus: string = 'all';
+    private filterCategory: string = 'all';
+    private filterPriority: string = 'all';
+    private showCompleted: boolean = true;
+  
+    public getFilterStatus(): string {
+        return this.filterStatus;
+    }
+    public setFilterStatus(value: string) {
+        this.filterStatus = value;
+    }
+    public getFilterCategory(): string {
+        return this.filterCategory;
+    }
+    public setFilterCateogry(value: string) {
+        this.filterCategory= value;
+    }
+    public getFilterPriority(): string {
+        return this.filterPriority;
+    }
+    public setFilterPriority(value:string){
+        this.filterPriority = value
+    }
+
+    getShowCompleted(): boolean{
+        return this.showCompleted;
+    }
+    public setShowCompleted(value:boolean){
+        this.showCompleted = value;
+    }
+    filterTasks(tasks: Task[]): Task[] {
         let filtered = [...tasks];
 
-        if (filterStatus !== 'all') {
-            filtered = filtered.filter(task => task.status === filterStatus);
+        if (this.filterStatus !== 'all') {
+            filtered = filtered.filter(task => task.status === this.filterStatus);
         }
 
-        if (filterCategory !== 'all') {
-            filtered = filtered.filter(task => task.category === filterCategory);
+        if (this.filterCategory !== 'all') {
+            filtered = filtered.filter(task => task.category === this.filterCategory);
         }
 
-        if (filterPriority !== 'all') {
-            filtered = filtered.filter(task => task.priority === filterPriority);
+        if (this.filterPriority !== 'all') {
+            filtered = filtered.filter(task => task.priority === this.filterPriority);
         }
 
-        if (!showCompleted) {
+        if (!this.showCompleted) {
             filtered = filtered.filter(task => task.status !== 'completed');
         }
         return filtered;
