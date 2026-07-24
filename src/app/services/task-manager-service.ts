@@ -39,8 +39,8 @@ export class TaskManagerService {
   init() {
     console.log('service iint');
   }
-  getTasks(): any {
-    return this.tasks;
+  getTasks(): Task[] {
+    return this.tasks();
   }
   addTask(task: Task) {
     this.tasks().push(task);
