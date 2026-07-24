@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Task } from '../model/task';
 import { TaskItem } from "../task-item/task-item";
 import { TaskManagerService } from '../services/task-manager-service';
+import { TaskFilterService } from '../services/task-filter-service';
 
 @Component({
   selector: 'app-task-manager',
@@ -12,7 +13,7 @@ import { TaskManagerService } from '../services/task-manager-service';
   templateUrl: './task-manager.html',
   styleUrl: './task-manager.scss',
 })
-export class TaskManager  {
+export class TaskManager {
   categories: string[] = ['work', 'personal', 'shopping', 'health', 'finance', 'education', 'other'];
   priorities: string[] = ['low', 'medium', 'high', 'urgent'];
   statuses: string[] = ['pending', 'in-progress', 'completed', 'cancelled'];
@@ -40,8 +41,9 @@ export class TaskManager  {
   filterPriority: string = 'all';
   showCompleted: boolean = true;
   taskManagerService: TaskManagerService = inject(TaskManagerService)
+  taskFilterService: TaskFilterService = inject(TaskFilterService);
 
-  getTasks(){
+  getTasks() {
     return this.taskManagerService.getTasks();
   }
 
@@ -83,8 +85,6 @@ export class TaskManager  {
       return;
     }
 
-
-
     const task: Task = {
       id: Date.now(),
       title: this.newTask.title,
@@ -112,25 +112,7 @@ export class TaskManager  {
   }
 
   getFilteredTasks(): Task[] {
-    let filtered = [...this.getTasks()];
-
-    if (this.filterStatus !== 'all') {
-      filtered = filtered.filter(task => task.status === this.filterStatus);
-    }
-
-    if (this.filterCategory !== 'all') {
-      filtered = filtered.filter(task => task.category === this.filterCategory);
-    }
-
-    if (this.filterPriority !== 'all') {
-      filtered = filtered.filter(task => task.priority === this.filterPriority);
-    }
-
-    if (!this.showCompleted) {
-      filtered = filtered.filter(task => task.status !== 'completed');
-    }
-
-    return filtered;
+    return this.taskFilterService.filterTasks(this.getTasks(), this.filterStatus, this.filterCategory, this.filterPriority, this.showCompleted);
   }
 
 
