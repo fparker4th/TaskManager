@@ -39,8 +39,8 @@ export class TaskManagerService {
   init() {
     console.log('service iint');
   }
-  getTasks(): any {
-    return this.tasks;
+  getTasks(): Task[] {
+    return this.tasks();
   }
   addTask(task: Task) {
     this.tasks().push(task);
@@ -50,6 +50,17 @@ export class TaskManagerService {
     if (deleteIndex != -1) {
       this.tasks().splice(deleteIndex, 1);
     }
-
+  }
+  toggleTaskComplete(task:Task): void {
+    if (task) {
+      if (task.status === 'completed') {
+        task.status = 'pending';
+        delete task.completedAt;
+      }
+      else {
+        task.status = 'completed';
+        task.completedAt = new Date();
+      }
+    }
   }
 }

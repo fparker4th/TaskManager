@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -12,8 +12,7 @@ import { TaskManagerService } from '../services/task-manager-service';
   templateUrl: './task-manager.html',
   styleUrl: './task-manager.scss',
 })
-export class TaskManager implements OnInit{
-  tasks = signal<Task[]>([]);
+export class TaskManager  {
   categories: string[] = ['work', 'personal', 'shopping', 'health', 'finance', 'education', 'other'];
   priorities: string[] = ['low', 'medium', 'high', 'urgent'];
   statuses: string[] = ['pending', 'in-progress', 'completed', 'cancelled'];
@@ -40,29 +39,29 @@ export class TaskManager implements OnInit{
   filterCategory: string = 'all';
   filterPriority: string = 'all';
   showCompleted: boolean = true;
-  constructor(private taskManagerService: TaskManagerService){
+  taskManagerService: TaskManagerService = inject(TaskManagerService)
 
+  getTasks(){
+    return this.taskManagerService.getTasks();
   }
-  ngOnInit(): void {
-    this.tasks = this.taskManagerService.getTasks()
-  }
+
   getCompletedTasksCount(): number {
-    return this.tasks().filter(task => task.status === 'completed').length;
+    return this.getTasks().filter(task => task.status === 'completed').length;
   }
 
   getPendingTasksCount(): number {
-    return this.tasks().filter(task => task.status === 'pending').length;
+    return this.getTasks().filter(task => task.status === 'pending').length;
   }
 
   getOverdueTasksCount(): number {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return this.tasks().filter(task => new Date(task.dueDate) < today && task.status != 'completed').length;
+    return this.getTasks().filter(task => new Date(task.dueDate) < today && task.status != 'completed').length;
   }
 
   getCompletionRate(): number {
-    if (this.tasks().length == 0) return 0;
-    return Math.round((this.getCompletedTasksCount() / this.tasks().length) * 100);
+    if (this.getTasks().length == 0) return 0;
+    return Math.round((this.getCompletedTasksCount() / this.getTasks().length) * 100);
   }
 
   getProductivityLevel(): string {
@@ -83,7 +82,7 @@ export class TaskManager implements OnInit{
     if (!this.newTask.title || !this.newTask.category || !this.newTask.dueDate) {
       return;
     }
-    
+
 
 
     const task: Task = {
@@ -113,7 +112,7 @@ export class TaskManager implements OnInit{
   }
 
   getFilteredTasks(): Task[] {
-    let filtered = [...this.tasks()];
+    let filtered = [...this.getTasks()];
 
     if (this.filterStatus !== 'all') {
       filtered = filtered.filter(task => task.status === this.filterStatus);
@@ -133,7 +132,7 @@ export class TaskManager implements OnInit{
 
     return filtered;
   }
-  
+
 
 
 }
