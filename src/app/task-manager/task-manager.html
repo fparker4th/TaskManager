@@ -152,7 +152,7 @@
             <option value="all">All Status</option>
             @for (status of statuses; track status)
             {
-            <option [value]="status">{{status}}</option>
+            <option [value]="status">{{status|uppercase}}</option>
             }
         </select>
 
@@ -160,7 +160,7 @@
             <option value="all">All Categories</option>
             @for (category of categories; track category)
             {
-            <option [value]="category">{{category}}</option>
+            <option [value]="category">{{category|titlecase}}</option>
             }
         </select>
 
@@ -168,7 +168,7 @@
             <option value="all">All Priorities</option>
             @for (priority of priorities; track priority)
             {
-            <option [value]="priority">{{priority}}</option>
+            <option [value]="priority">{{priority|titlecase}}</option>
             }
         </select>
 

@@ -18,7 +18,7 @@
             <span [class]="'status-badge status-' + task().status">{{task().status|uppercase}}</span>
             <span [style.color]="isOverdue()? '#ef4444' : '#64748b'">Due:
                 {{task().dueDate|date:'mediumDate'}}</span>
-            @if(isTaskCompleted()){
+            @if(isTaskCompleted() || task().completedAt){
             <span class="completed-date-tag">
                 {{'Date Completed:'+task().completedAt|date:'mediumDate'}}</span>
             }
