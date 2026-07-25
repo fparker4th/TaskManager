@@ -9,17 +9,22 @@ import { TaskFilterService } from '../services/task-filter-service';
 import { TaskStatsService } from '../services/task-stats-service';
 import { PriorityPipe } from '../pipes/priority-pipe';
 import { StatusLabelPipe } from '../pipes/status-label-pipe';
+import { TaskApiService } from '../services/task-api-service';
 
 @Component({
   selector: 'app-task-manager',
-  imports: [CommonModule, FormsModule, StatusLabelPipe,PriorityPipe, TaskItem],
+  imports: [CommonModule, FormsModule, StatusLabelPipe, PriorityPipe, TaskItem],
   templateUrl: './task-manager.html',
   styleUrl: './task-manager.scss',
 })
-export class TaskManager {
+export class TaskManager implements OnInit{
   categories: string[] = ['work', 'personal', 'shopping', 'health', 'finance', 'education', 'other'];
   priorities: string[] = ['low', 'medium', 'high', 'urgent'];
   statuses: string[] = ['pending', 'in-progress', 'completed', 'cancelled'];
+  private taskApiService: TaskApiService = inject(TaskApiService);
+  private taskManagerService: TaskManagerService = inject(TaskManagerService)
+  private taskFilterService: TaskFilterService = inject(TaskFilterService);
+  private taskStatsService: TaskStatsService = inject(TaskStatsService);
 
   //Form data
   newTask: {
@@ -39,34 +44,31 @@ export class TaskManager {
     };
 
   //Filter controls
-  
-  taskManagerService: TaskManagerService = inject(TaskManagerService)
-  taskFilterService: TaskFilterService = inject(TaskFilterService);
-  taskStatsService: TaskStatsService = inject(TaskStatsService);
 
 
-  get filterStatus(){
+
+  get filterStatus() {
     return this.taskFilterService.getFilterStatus();
   }
-  set filterStatus(value){
+  set filterStatus(value) {
     this.taskFilterService.setFilterStatus(value);
   }
-  get filterCategory(){
+  get filterCategory() {
     return this.taskFilterService.getFilterCategory();
   }
-  set filterCategory(value){
+  set filterCategory(value) {
     this.taskFilterService.setFilterCateogry(value);
   }
-  get filterPriority(){
+  get filterPriority() {
     return this.taskFilterService.getFilterPriority();
   }
-  set filterPriority(value){
+  set filterPriority(value) {
     this.taskFilterService.setFilterPriority(value);
   }
-   get showCompleted(){
+  get showCompleted() {
     return this.taskFilterService.getShowCompleted();
   }
-  set showCompleted(value){
+  set showCompleted(value) {
     this.taskFilterService.setShowCompleted(value);
   }
   getTasks() {
@@ -77,23 +79,29 @@ export class TaskManager {
     return this.taskStatsService.getCompletedTasksCount();
   }
 
+  ngOnInit(): void {
+    this.taskApiService.getTasks()
+    .subscribe((tasks:Task[])=>{
+        console.log('api tasks', tasks);
+    });
+  }
   getPendingTasksCount(): number {
     return this.taskStatsService.getPendingTasksCount()
   }
 
   getOverdueTasksCount(): number {
     return this.taskStatsService.getOverdueTasksCount()
-    
+
   }
 
   getCompletionRate(): number {
     return this.taskStatsService.getCompletionRate();
-  
+
   }
 
   getProductivityLevel(): string {
     return this.taskStatsService.getProductivityLevel();
-   
+
   }
   onFieldFocus(field: string): void {
     //Could add validation feedback here
