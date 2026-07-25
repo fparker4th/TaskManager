@@ -111,7 +111,7 @@
                 <select [(ngModel)]="newTask.priority">
                     @for (priority of priorities; track priority)
                     {
-                    <option [value]="priority">{{priority|titlecase}}</option>
+                    <option [value]="priority">{{priority|priorityPipe}}</option>
                     }
                 </select>
             </div>
