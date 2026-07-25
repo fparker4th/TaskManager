@@ -11,5 +11,10 @@ export class TaskApiService {
     getTasks():Observable<Task[]>{
         return this.http.get<Task[]>(`${this.apiUrl}/tasks`);
     }
+    createTask(task:Task):Observable<Task>{
+       return this.http.post<Task>(`${this.apiUrl}/tasks`,
+        task
+       );
+    }
 
 }
