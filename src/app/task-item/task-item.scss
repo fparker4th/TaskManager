@@ -68,6 +68,34 @@
   gap: 8px;
 }
 
+.priority-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.priority-low-badge {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.priority-medium-badge {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.priority-high-badge {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.priority-urgent-badge {
+  background: #dc2626;
+  color: white;
+  animation: pulse 2s infinite;
+}
+
 /* Priority Colors */
 .priority-low {
   border-left-color: #10b981 !important;
@@ -89,6 +117,7 @@
   background: #fee2e2 !important;
   animation: pulse 2s infinite;
 }
+
 
 .category-tag {
   padding: 4px 8px;
