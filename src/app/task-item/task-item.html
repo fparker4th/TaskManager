@@ -1,6 +1,5 @@
 <div class="task-item" [class]="'priority-' + task().priority" [class.task-completed]="task().status === 'completed'">
-    <input type="checkbox" class="task-checkbox" [checked]="isTaskCompleted()"
-        (change)="toggleTaskComplete()" />
+    <input type="checkbox" class="task-checkbox" [checked]="isTaskCompleted()" (change)="toggleTaskComplete()" />
 
     <div class="task-content">
         <div class="task-header">
@@ -16,6 +15,8 @@
         <div class="task-meta">
             <span [class]="'category-tag category-' + task().category">{{task().category|titlecase}}</span>
             <span [class]="'status-badge status-' + task().status">{{task().status|uppercase}}</span>
+            <span [class]="'priority-badge priority-' + task().priority + '-badge'">{{task().priority |
+                priorityPipe}}</span>
             <span [style.color]="isOverdue()? '#ef4444' : '#64748b'">Due:
                 {{task().dueDate|date:'mediumDate'}}</span>
             @if(isTaskCompleted() || task().completedAt){
