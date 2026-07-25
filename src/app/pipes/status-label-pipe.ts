@@ -9,9 +9,6 @@ export class StatusLabelPipe implements PipeTransform {
       if (!value) {
         return '';
       }
-
-
-      console.log('status Pipe value:' +value);
       switch (value) {
         case 'pending':
           return 'Pending';

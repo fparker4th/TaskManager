@@ -126,7 +126,7 @@
                 <select [(ngModel)]="newTask.status">
                     @for (status of statuses; track status)
                     {
-                    <option [value]="status">{{status|uppercase}}</option>
+                    <option [value]="status">{{status|statusLabel}}</option>
                     }
                 </select>
             </div>
@@ -152,7 +152,7 @@
             <option value="all">All Status</option>
             @for (status of statuses; track status)
             {
-            <option [value]="status">{{status|uppercase}}</option>
+            <option [value]="status">{{status|statusLabel}}</option>
             }
         </select>
 
