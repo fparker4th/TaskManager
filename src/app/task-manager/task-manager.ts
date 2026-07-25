@@ -7,10 +7,11 @@ import { TaskItem } from "../task-item/task-item";
 import { TaskManagerService } from '../services/task-manager-service';
 import { TaskFilterService } from '../services/task-filter-service';
 import { TaskStatsService } from '../services/task-stats-service';
+import { PriorityPipe } from '../pipes/priority-pipe';
 
 @Component({
   selector: 'app-task-manager',
-  imports: [CommonModule, FormsModule, TaskItem],
+  imports: [CommonModule, FormsModule,PriorityPipe, TaskItem],
   templateUrl: './task-manager.html',
   styleUrl: './task-manager.scss',
 })
