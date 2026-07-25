@@ -1,6 +1,5 @@
 import { Service, signal } from '@angular/core';
 import { Task } from '../model/task';
-import { SignalNode } from '@angular/core/primitives/signals';
 
 @Service()
 export class TaskManagerService {
@@ -15,9 +14,11 @@ export class TaskManagerService {
     return this.tasks();
   }
   addTask(task: Task) {
+    console.log('adding task', task);
     this.tasks().push(task);
+    console.log('new task list', this.tasks());
   }
-  deleteTask(deleteId: number): void {
+  removeTask(deleteId: number): void {
     const deleteIndex = this.tasks().findIndex((task) => task.id === deleteId);
     if (deleteIndex != -1) {
       this.tasks().splice(deleteIndex, 1);

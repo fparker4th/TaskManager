@@ -17,7 +17,7 @@ import { TaskApiService } from '../services/task-api-service';
   templateUrl: './task-manager.html',
   styleUrl: './task-manager.scss',
 })
-export class TaskManager implements OnInit{
+export class TaskManager implements OnInit {
   categories: string[] = ['work', 'personal', 'shopping', 'health', 'finance', 'education', 'other'];
   priorities: string[] = ['low', 'medium', 'high', 'urgent'];
   statuses: string[] = ['pending', 'in-progress', 'completed', 'cancelled'];
@@ -81,9 +81,9 @@ export class TaskManager implements OnInit{
 
   ngOnInit(): void {
     this.taskApiService.getTasks()
-    .subscribe((tasks:Task[])=>{
+      .subscribe((tasks: Task[]) => {
         this.taskManagerService.setTasks(tasks);
-    });
+      });
   }
   getPendingTasksCount(): number {
     return this.taskStatsService.getPendingTasksCount()
@@ -125,9 +125,10 @@ export class TaskManager implements OnInit{
       status: this.newTask.status,
       createdAt: new Date()
     };
-
-    this.taskManagerService.addTask(task);
-    this.clearForm();
+    this.taskApiService.createTask(task).subscribe((newTask) => {
+      this.taskManagerService.addTask(task);
+      this.clearForm();
+    });
   }
 
   clearForm(): void {
