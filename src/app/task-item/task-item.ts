@@ -4,10 +4,11 @@ import { Task } from '../model/task';
 import { TaskManagerService } from '../services/task-manager-service';
 import { CommonModule } from '@angular/common';
 import { PriorityPipe } from '../pipes/priority-pipe';
+import { StatusLabelPipe } from '../pipes/status-label-pipe';
 
 @Component({
   selector: 'app-task-item',
-  imports: [CommonModule,PriorityPipe],
+  imports: [CommonModule, PriorityPipe, StatusLabelPipe],
   templateUrl: './task-item.html',
   styleUrl: './task-item.scss',
 })

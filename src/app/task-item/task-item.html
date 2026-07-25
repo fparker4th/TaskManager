@@ -14,9 +14,8 @@
 
         <div class="task-meta">
             <span [class]="'category-tag category-' + task().category">{{task().category|titlecase}}</span>
-            <span [class]="'status-badge status-' + task().status">{{task().status|uppercase}}</span>
-            <span [class]="'priority-badge priority-' + task().priority + '-badge'">{{task().priority |
-                priorityPipe}}</span>
+            <span [class]="'status-badge status-' + task().status">{{task().status|statusLabel}}</span>
+            <span [class]="'priority-badge priority-' + task().priority + '-badge'">{{task().priority|priorityPipe}}</span>
             <span [style.color]="isOverdue()? '#ef4444' : '#64748b'">Due:
                 {{task().dueDate|date:'mediumDate'}}</span>
             @if(isTaskCompleted() || task().completedAt){
