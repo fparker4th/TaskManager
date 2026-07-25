@@ -5,6 +5,7 @@ import { TaskManagerService } from '../services/task-manager-service';
 import { CommonModule } from '@angular/common';
 import { PriorityPipe } from '../pipes/priority-pipe';
 import { StatusLabelPipe } from '../pipes/status-label-pipe';
+import { TaskApiService } from '../services/task-api-service';
 
 @Component({
   selector: 'app-task-item',
@@ -15,7 +16,8 @@ import { StatusLabelPipe } from '../pipes/status-label-pipe';
 export class TaskItem {
   task = input.required<Task>();
   index = input.required<number>();
-  taskManagerService: TaskManagerService = inject(TaskManagerService)
+  taskManagerService: TaskManagerService = inject(TaskManagerService);
+  taskApiService: TaskApiService = inject(TaskApiService);
 
 
   toggleTaskComplete(): void {
@@ -30,7 +32,12 @@ export class TaskItem {
 
   }
   deleteTask() {
-    this.taskManagerService.deleteTask(this.task().id);
+    const taskId = this.task().id;
+    this.taskApiService.deleteTask(taskId)
+      .subscribe(() => {
+        this.taskManagerService.removeTask(taskId);
+      });
+
   }
   isTaskCompleted(): boolean {
 
