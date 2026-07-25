@@ -82,7 +82,7 @@ export class TaskManager implements OnInit{
   ngOnInit(): void {
     this.taskApiService.getTasks()
     .subscribe((tasks:Task[])=>{
-        console.log('api tasks', tasks);
+        this.taskManagerService.setTasks(tasks);
     });
   }
   getPendingTasksCount(): number {
