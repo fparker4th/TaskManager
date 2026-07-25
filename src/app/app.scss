@@ -1,4 +1,7 @@
 .app-container {
+  position: relative;
+  top: 15px;
+  z-index: 30;
   min-height: calc(100vh - 60px);
   background-color: #f5f7fa;
 }
