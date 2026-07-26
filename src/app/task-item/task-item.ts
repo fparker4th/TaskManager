@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Task } from '../model/task';
@@ -16,6 +16,7 @@ import { TaskApiService } from '../services/task-api-service';
 export class TaskItem {
   task = input.required<Task>();
   index = input.required<number>();
+  
   taskManagerService: TaskManagerService = inject(TaskManagerService);
   taskApiService: TaskApiService = inject(TaskApiService);
 
