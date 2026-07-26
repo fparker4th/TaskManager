@@ -24,7 +24,10 @@ export class TaskManagerService {
       this.tasks().splice(deleteIndex, 1);
     }
   }
-  toggleTaskComplete(task:Task): void {
+  toggleTaskComplete(id:number): void {
+    let task = this.getTasks().find((task)=>{
+      task.id === id;
+    })
     if (task) {
       if (task.status === 'completed') {
         task.status = 'pending';

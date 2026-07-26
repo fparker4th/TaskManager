@@ -1,8 +1,8 @@
 import { Component, inject, input, output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { Task } from '../model/task';
 import { TaskManagerService } from '../services/task-manager-service';
-import { CommonModule } from '@angular/common';
 import { PriorityPipe } from '../pipes/priority-pipe';
 import { StatusLabelPipe } from '../pipes/status-label-pipe';
 import { TaskApiService } from '../services/task-api-service';
@@ -21,8 +21,21 @@ export class TaskItem {
 
 
   toggleTaskComplete(): void {
-    const task = this.task();
-    this.taskManagerService.toggleTaskComplete(task);
+    this.taskApiService.getTaskById(this.task().id).subscribe(
+      (response: Task) => {
+        const newStatus = response.status === 'completed'? 'pending' : 'completed';
+        const updatedData: Task = {
+          ...response,
+          status: newStatus,
+          completedAt: newStatus === 'completed'? new Date() : null
+        };
+
+        this.taskApiService.updateTask(updatedData)
+        .subscribe((updatedTask: Task) => {
+          this.taskManagerService.toggleTaskComplete(updatedTask.id);
+        });
+      }
+    );
   }
 
   isOverdue() {
@@ -33,14 +46,16 @@ export class TaskItem {
   }
   deleteTask() {
     const taskId = this.task().id;
-    this.taskApiService.deleteTask(taskId)
-      .subscribe(() => {
-        this.taskManagerService.removeTask(taskId);
-      });
-
+    if (confirm("Are you sure to delete?")) {
+      this.taskApiService.deleteTask(taskId).subscribe(
+        (response: any) => {
+          this.taskManagerService.removeTask(taskId);
+        }
+      );
+    }
   }
-  isTaskCompleted(): boolean {
 
+  isTaskCompleted(): boolean {
     return this.task().status === 'completed';
   }
 

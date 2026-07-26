@@ -82,6 +82,7 @@ export class TaskManager implements OnInit {
   ngOnInit(): void {
     this.taskApiService.getTasks()
       .subscribe((tasks: Task[]) => {
+        console.log('Setting tasks', tasks);
         this.taskManagerService.setTasks(tasks);
       });
   }
@@ -143,7 +144,24 @@ export class TaskManager implements OnInit {
   }
 
   getFilteredTasks(): Task[] {
-    return this.taskFilterService.filterTasks(this.getTasks());
+      let filtered = [...this.getTasks()];
+
+        if (this.filterStatus !== 'all') {
+            filtered = filtered.filter(task => task.status === this.filterStatus);
+        }
+
+        if (this.filterCategory !== 'all') {
+            filtered = filtered.filter(task => task.category === this.filterCategory);
+        }
+
+        if (this.filterPriority !== 'all') {
+            filtered = filtered.filter(task => task.priority === this.filterPriority);
+        }
+
+        if (!this.showCompleted) {
+            filtered = filtered.filter(task => task.status !== 'completed');
+        }
+        return filtered;
   }
 
 
