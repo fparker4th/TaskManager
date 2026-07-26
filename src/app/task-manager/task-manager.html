@@ -1,5 +1,5 @@
 <div class="task-manager-container">
-@if (errorMessage)
+    @if (errorMessage)
     {
     <div class="alert alert-danger">
         {{errorMessage}}
@@ -13,7 +13,7 @@
             Web Academy by Harsha Vardhan
         </p>
     </div>
-    
+
     <!-- Statistics Cards starts -->
     <div class="stats-container">
         <div class="stat-card">
@@ -144,10 +144,10 @@
 
         <div class="form-actions">
             <button class="btn btn-primary" (click)="addTask()"
-                [disabled]="!newTask.title || !newTask.category || !newTask.dueDate"
-                [title]="(!newTask.title || !newTask.category || !newTask.dueDate)? 'Please fill in required fields' : 'Add new task'">Add
-                Task</button>
-
+                [disabled]="!newTask.title || !newTask.category || !newTask.dueDate || isAddingTask"
+                [title]="(!newTask.title || !newTask.category || !newTask.dueDate)? 'Please fill in required fields' : 'Add new task'">
+                {{isAddingTask? 'Adding...' : 'Add Task'}}
+            </button>
             <button class="btn btn-secondary" (click)="clearForm()">Clear</button>
         </div>
     </div>
