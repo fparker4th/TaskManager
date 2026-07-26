@@ -16,7 +16,7 @@ import { TaskApiService } from '../services/task-api-service';
 export class TaskItem {
   task = input.required<Task>();
   index = input.required<number>();
-  
+
   taskManagerService: TaskManagerService = inject(TaskManagerService);
   taskApiService: TaskApiService = inject(TaskApiService);
 
@@ -33,7 +33,7 @@ export class TaskItem {
 
         this.taskApiService.updateTask(updatedData)
         .subscribe((updatedTask: Task) => {
-          this.taskManagerService.toggleTaskComplete(updatedTask.id);
+          this.taskManagerService.toggleTaskComplete(this.task())
         });
       }
     );

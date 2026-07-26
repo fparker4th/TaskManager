@@ -22,11 +22,8 @@ export class TaskManagerService {
       this.tasks().splice(deleteIndex, 1);
     }
   }
-  toggleTaskComplete(id:number): void {
-    let task = this.getTasks().find((task)=>{
-      task.id == id;
-    });
-    console.log('task forID'+ id, task);
+  toggleTaskComplete(task: Task): void {
+    
 
     if (task) {
       if (task.status === 'completed') {
