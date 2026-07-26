@@ -26,6 +26,7 @@ export class TaskManager implements OnInit {
   private taskFilterService: TaskFilterService = inject(TaskFilterService);
   private taskStatsService: TaskStatsService = inject(TaskStatsService);
   errorMessage:string= '';
+  isAddingTask= false;
   isLoadingTasks:boolean = false;
   //Form data
   newTask: {
@@ -136,10 +137,24 @@ export class TaskManager implements OnInit {
       status: this.newTask.status,
       createdAt: new Date()
     };
-    this.taskApiService.createTask(task).subscribe((newTask) => {
-      this.taskManagerService.addTask(task);
-      this.clearForm();
-    });
+     this.isAddingTask= true;
+     this.taskApiService.createTask(task).subscribe({
+      next: (response: Task) => {
+        this.taskManagerService.addTask(response);
+        this.clearForm();
+        this.isAddingTask = false;
+        this.errorMessage = '';
+      },
+      error: (error:any) => {
+        console.error('Error adding task: ', error);
+        this.errorMessage = 'Failed to add task. Please try again ';
+        this.isAddingTask = false;
+      },
+      complete: () => {
+        console.log('Add task completed');
+      }
+    }
+    );
   }
 
   clearForm(): void {
