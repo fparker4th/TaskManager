@@ -4,9 +4,7 @@ import { Task } from '../model/task';
 @Service()
 export class TaskManagerService {
   private tasks = signal<Task[]>([]);
-  init() {
-    console.log('service iint');
-  }
+  
   setTasks(tasks:Task[]){
     this.tasks.set(tasks);
   }
