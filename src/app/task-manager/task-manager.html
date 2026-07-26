@@ -1,5 +1,10 @@
 <div class="task-manager-container">
-
+@if (errorMessage)
+    {
+    <div class="alert alert-danger">
+        {{errorMessage}}
+    </div>
+    }
     <!-- header section starts -->
     <div class="header-section">
         <h1>{{ 'Task Manager' }}</h1>
@@ -8,7 +13,7 @@
             Web Academy by Harsha Vardhan
         </p>
     </div>
-
+    
     <!-- Statistics Cards starts -->
     <div class="stats-container">
         <div class="stat-card">
@@ -42,7 +47,7 @@
     <!-- Statistics Cards ends -->
 
     <!-- Quick Actions bar starts -->
-        <!-- Quick Actions bar ends -->
+    <!-- Quick Actions bar ends -->
 
     <!-- Productivity alert starts -->
     @switch (getProductivityLevel())
@@ -147,7 +152,7 @@
         </div>
     </div>
     <!-- Tasks List starts -->
-     <div class="quick-actions">
+    <div class="quick-actions">
         <select class="filter-dropdown" [(ngModel)]="filterStatus">
             <option value="all">All Status</option>
             @for (status of statuses; track status)
@@ -189,8 +194,7 @@
         <div class="tasks-list">
             @for (task of getFilteredTasks(); track task.id; let idx = $index)
             {
-             <app-task-item [task]="task" 
-             [index]="idx"></app-task-item>
+            <app-task-item [task]="task" [index]="idx"></app-task-item>
             }
         </div>
         }@else{

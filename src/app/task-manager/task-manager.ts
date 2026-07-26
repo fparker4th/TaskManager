@@ -25,7 +25,8 @@ export class TaskManager implements OnInit {
   private taskManagerService: TaskManagerService = inject(TaskManagerService)
   private taskFilterService: TaskFilterService = inject(TaskFilterService);
   private taskStatsService: TaskStatsService = inject(TaskStatsService);
-
+  errorMessage:string= '';
+  isLoadingTasks:boolean = false;
   //Form data
   newTask: {
     title: string,
@@ -44,9 +45,6 @@ export class TaskManager implements OnInit {
     };
 
   //Filter controls
-
-
-
   get filterStatus() {
     return this.taskFilterService.getFilterStatus();
   }
@@ -81,9 +79,21 @@ export class TaskManager implements OnInit {
 
   ngOnInit(): void {
     this.taskApiService.getTasks()
-      .subscribe((tasks: Task[]) => {
-        console.log('Setting tasks', tasks);
-        this.taskManagerService.setTasks(tasks);
+      .subscribe({
+        next: (response: Task[]) => {
+          //console.log(response);
+          this.taskManagerService.setTasks(response);
+          this.errorMessage = '';
+          this.isLoadingTasks = false;
+        },
+        error: (error) => {
+          this.errorMessage = 'Failed to load tasks. Please refresh the page.';
+          console.error('Error loading tasks: ', error);
+          this.isLoadingTasks = false;
+        },
+        complete: () => {
+          console.log('Fetch tasks completed');
+        }
       });
   }
   getPendingTasksCount(): number {
@@ -144,24 +154,24 @@ export class TaskManager implements OnInit {
   }
 
   getFilteredTasks(): Task[] {
-      let filtered = [...this.getTasks()];
+    let filtered = [...this.getTasks()];
 
-        if (this.filterStatus !== 'all') {
-            filtered = filtered.filter(task => task.status === this.filterStatus);
-        }
+    if (this.filterStatus !== 'all') {
+      filtered = filtered.filter(task => task.status === this.filterStatus);
+    }
 
-        if (this.filterCategory !== 'all') {
-            filtered = filtered.filter(task => task.category === this.filterCategory);
-        }
+    if (this.filterCategory !== 'all') {
+      filtered = filtered.filter(task => task.category === this.filterCategory);
+    }
 
-        if (this.filterPriority !== 'all') {
-            filtered = filtered.filter(task => task.priority === this.filterPriority);
-        }
+    if (this.filterPriority !== 'all') {
+      filtered = filtered.filter(task => task.priority === this.filterPriority);
+    }
 
-        if (!this.showCompleted) {
-            filtered = filtered.filter(task => task.status !== 'completed');
-        }
-        return filtered;
+    if (!this.showCompleted) {
+      filtered = filtered.filter(task => task.status !== 'completed');
+    }
+    return filtered;
   }
 
 
