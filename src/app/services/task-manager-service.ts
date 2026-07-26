@@ -4,9 +4,7 @@ import { Task } from '../model/task';
 @Service()
 export class TaskManagerService {
   private tasks = signal<Task[]>([]);
-  init() {
-    console.log('service iint');
-  }
+  
   setTasks(tasks:Task[]){
     this.tasks.set(tasks);
   }
@@ -24,7 +22,9 @@ export class TaskManagerService {
       this.tasks().splice(deleteIndex, 1);
     }
   }
-  toggleTaskComplete(task:Task): void {
+  toggleTaskComplete(task: Task): void {
+    
+
     if (task) {
       if (task.status === 'completed') {
         task.status = 'pending';

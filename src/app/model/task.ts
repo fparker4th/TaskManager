@@ -7,5 +7,5 @@ export interface Task {
     dueDate: Date;
     status: string;
     createdAt: Date;
-    completedAt?: Date;
+    completedAt?: Date|null;
 }

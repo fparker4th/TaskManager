@@ -20,7 +20,7 @@
                 {{task().dueDate|date:'mediumDate'}}</span>
             @if(isTaskCompleted() || task().completedAt){
             <span class="completed-date-tag">
-                {{'Date Completed:'+task().completedAt|date:'mediumDate'}}</span>
+                {{'Date Completed:'+task().completedAt}}</span>
             }
             @if (this.isTaskCompletedOntime()) {
             <span class="completed-ontime-tag">

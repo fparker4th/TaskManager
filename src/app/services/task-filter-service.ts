@@ -33,24 +33,5 @@ export class TaskFilterService {
     public setShowCompleted(value:boolean){
         this.showCompleted = value;
     }
-    filterTasks(tasks: Task[]): Task[] {
-        let filtered = [...tasks];
-
-        if (this.filterStatus !== 'all') {
-            filtered = filtered.filter(task => task.status === this.filterStatus);
-        }
-
-        if (this.filterCategory !== 'all') {
-            filtered = filtered.filter(task => task.category === this.filterCategory);
-        }
-
-        if (this.filterPriority !== 'all') {
-            filtered = filtered.filter(task => task.priority === this.filterPriority);
-        }
-
-        if (!this.showCompleted) {
-            filtered = filtered.filter(task => task.status !== 'completed');
-        }
-        return filtered;
-    }
+    
 }
